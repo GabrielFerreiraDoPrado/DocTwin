@@ -26,20 +26,20 @@
                         <div class="card-body">
 
                             <h3 class="card-title text-center mb-4">
-                                Document Similarity Analyzer
+                                Analizador de Similaridade de Documentos
                             </h3>
 
                             <p class="text-center text-muted mb-4">
-                                Upload two documents to calculate their similarity index
+                                Carregue dois documentos de texto para analisar a similaridade entre eles
                             </p>
 
-                            <g:form controller="home"
-                                    action="analyze"
+                            <g:form controller="similarity"
+                                    action="compare"
                                     method="POST"
                                     enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                    <label for="file1">First Document</label>
+                                    <label for="file1">Primeiro Documento</label>
                                     <input type="file"
                                            class="form-control-file"
                                            id="file1"
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="file2">Second Document</label>
+                                    <label for="file2">Segundo Documento</label>
                                     <input type="file"
                                            class="form-control-file"
                                            id="file2"
@@ -57,16 +57,14 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    Analyze Similarity
+                                    Analisar Similaridade
                                 </button>
-
                             </g:form>
-
                         </div>
                     </div>
 
                     <footer class="text-center mt-3 text-muted">
-                        <small>Grails 5 · Bootstrap 4 · NLP Similarity</small>
+                        <small>Grails 5 · Bootstrap 4 · Similarity</small>
                     </footer>
 
                 </div>
