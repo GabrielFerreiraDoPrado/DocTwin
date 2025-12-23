@@ -30,10 +30,6 @@ spring:
                 - '**/*.gson'
                 - 'logback.groovy'
                 - '*.properties'
-    servlet:
-        multipart:
-            max-file-size: 10MB
-            max-request-size: 10MB 
 environments:
     development:
         management:
@@ -87,6 +83,9 @@ grails:
             maxsize: 1000
     controllers:
         defaultScope: singleton
+        upload:
+            maxFileSize: 5242880
+            maxRequestSize: 5242880
     converters:
         encoding: UTF-8
     views:
