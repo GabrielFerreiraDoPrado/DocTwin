@@ -33,7 +33,7 @@ class DocumentService {
     private String normalize(String text) {
         return text
                 .toLowerCase()
-                .replaceAll("[^a-z0-9\\s]", " ")
+                .replaceAll("[^\\p{L}0-9\\s]", " ")
                 .replaceAll("\\s+", " ")
                 .trim()
     }
