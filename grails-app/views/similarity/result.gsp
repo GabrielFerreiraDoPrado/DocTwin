@@ -21,7 +21,7 @@
                             </p>
 
                             <p>
-                                <strong>Document0 2:</strong>
+                                <strong>Documento 2:</strong>
                                 ${document2}
                             </p>
 
