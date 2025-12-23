@@ -1,5 +1,6 @@
 package similarity
 
+import doctwin.StopwordUtils
 import document.DocumentService
 
 import org.springframework.web.multipart.MultipartFile
@@ -27,6 +28,8 @@ class SimilarityService {
 
         text.split(" ").each { token ->
             if (token) {
+                if (StopwordUtils.isStopword(token)) return
+
                 frequencyInfo[token] = (frequencyInfo[token] ?: 0) + 1
             }
         }

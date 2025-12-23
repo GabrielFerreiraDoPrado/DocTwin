@@ -1,4 +1,4 @@
-package doctwin.utils
+package doctwin
 
 class StopwordUtils {
 
