@@ -26,10 +26,13 @@ class SimilarityController {
 
         Double similarityScore = similarityService.compare(file1, file2)
 
-        render([
+        render(
+            view: "result",
+            model: [
                 document1: file1.originalFilename,
                 document2: file2.originalFilename,
                 similarityScore: similarityScore
-        ] as JSON)
+            ]
+        )
     }
 }
