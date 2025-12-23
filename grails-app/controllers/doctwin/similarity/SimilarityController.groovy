@@ -4,9 +4,13 @@ import grails.converters.JSON
 
 import org.springframework.web.multipart.MultipartFile
 
+import similarity.SimilarityService
+
 class SimilarityController {
 
     static allowedMethods = [compare: "POST"]
+
+    SimilarityService similarityService
 
     def compare() {
         MultipartFile file1 = request.getFile("file1")
@@ -20,15 +24,16 @@ class SimilarityController {
             return
         }
 
-        String text1 = file1.inputStream.text
-        String text2 = file1.inputStream.text
+        Double similarityScore = similarityService.compare(file1, file2)
+        println("índice: ${similarityScore}")
 
-        Double similarityScore = 0.0
-
-        render([
+        render(
+            view: "result",
+            model: [
                 document1: file1.originalFilename,
                 document2: file2.originalFilename,
                 similarityScore: similarityScore
-        ] as JSON)
+            ]
+        )
     }
 }
