@@ -8,9 +8,9 @@ class SimilarityService {
 
     DocumentService documentService
 
-    public Double compare(MultipartFile pdf1, MultipartFile pdf2) {
-        String text1 = documentService.extractNormalizedTextFromPDF(pdf1)
-        String text2 = documentService.extractNormalizedTextFromPDF(pdf2)
+    public Double compare(MultipartFile file1, MultipartFile file2) {
+        String text1 = documentService.extractNormalizedTextFromPDF(file1)
+        String text2 = documentService.extractNormalizedTextFromPDF(file2)
 
         if (!text1 || !text2) {
             return 0.0
