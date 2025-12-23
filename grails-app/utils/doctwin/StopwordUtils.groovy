@@ -14,7 +14,7 @@ class StopwordUtils {
             "or", "an", "at", "which", "but", "not"
     ] as Set
 
-    static Boolean isStopword(String token) {
+    public static Boolean isStopword(String token) {
         return PT.contains(token) || EN.contains(token)
     }
 }
