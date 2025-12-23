@@ -14,11 +14,13 @@ class DocumentService {
             return ""
         }
 
-        PDDocument document = PDDocument.load(pdfFile.inputStream)
-
-        String text = extractText(document)
-
-        return normalize(text)
+        try (
+            InputStream is = pdfFile.inputStream
+            PDDocument document = PDDocument.load(is)
+        ) {
+            String text = extractText(document)
+            return normalize(text)
+        }
     }
 
     private String extractText(PDDocument document) {
