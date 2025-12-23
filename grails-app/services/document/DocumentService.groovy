@@ -17,7 +17,9 @@ class DocumentService {
         try (
             PDDocument document = PDDocument.load(pdfFile.inputStream)
         ) {
-            return extractText(document)
+            String rawText = extractText(document)
+
+            return normalize(rawText)
         }
     }
 
