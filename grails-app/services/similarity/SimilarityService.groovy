@@ -1,12 +1,14 @@
 package similarity
 
+import document.DocumentService
+
 import org.springframework.web.multipart.MultipartFile
 
 class SimilarityService {
 
     DocumentService documentService
 
-    public Double cosineSimilarity(MultipartFile pdf1, MultipartFile pdf2) {
+    public Double compare(MultipartFile pdf1, MultipartFile pdf2) {
         String text1 = documentService.extractNormalizedTextFromPDF(pdf1)
         String text2 = documentService.extractNormalizedTextFromPDF(pdf2)
 
