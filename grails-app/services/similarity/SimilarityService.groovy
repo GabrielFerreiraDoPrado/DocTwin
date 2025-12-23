@@ -16,13 +16,13 @@ class SimilarityService {
             return 0.0
         }
 
-        Map<String, Integer> vector1 = termFrequency(text1)
-        Map<String, Integer> vector2 = termFrequency(text2)
+        Map<String, Integer> vector1 = findTermFrequency(text1)
+        Map<String, Integer> vector2 = findTermFrequency(text2)
 
         return cosineSimilarity(vector1, vector2)
     }
 
-    private Map<String, Integer> termFrequency(String text) {
+    private Map<String, Integer> findTermFrequency(String text) {
         Map<String, Integer> frequencyInfo = [:]
 
         text.split(" ").each { token ->
