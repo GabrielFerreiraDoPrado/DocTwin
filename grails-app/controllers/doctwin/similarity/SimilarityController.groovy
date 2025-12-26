@@ -25,7 +25,6 @@ class SimilarityController {
         }
 
         Double similarityScore = similarityService.compare(file1, file2)
-        println("índice: ${similarityScore}")
 
         render(
             view: "result",

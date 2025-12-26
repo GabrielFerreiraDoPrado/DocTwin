@@ -83,7 +83,7 @@ class SimilarityService {
     }
 
     private Double combinedSimilarity(Double cosine, Double jaccard) {
-        final Double alpha = 0.7
+        final Double alpha = 0.85
 
         return alpha * cosine + (1 - alpha) * jaccard
     }
