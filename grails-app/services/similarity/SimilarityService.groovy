@@ -20,7 +20,14 @@ class SimilarityService {
         Map<String, Integer> vector1 = findTermFrequency(text1)
         Map<String, Integer> vector2 = findTermFrequency(text2)
 
-        return cosineSimilarity(vector1, vector2)
+        Double cosine = cosineSimilarity(vector1, vector2)
+
+        Set<String> tokens1 = vector1.keySet()
+        Set<String> tokens2 = vector2.keySet()
+
+        Double jaccard = jaccardSimilarity(tokens1, tokens2)
+
+        return combinedSimilarity(cosine, jaccard)
     }
 
     private Map<String, Integer> findTermFrequency(String text) {
@@ -58,5 +65,26 @@ class SimilarityService {
         }
 
         return dotProduct / (Math.sqrt(normV1) * Math.sqrt(normV2))
+    }
+
+    private Double jaccardSimilarity(Set<String> tokens1, Set<String> tokens2) {
+        if (!tokens1 || !tokens2) {
+            return 0.0
+        }
+
+        Set<String> intersection = tokens1.intersect(tokens2)
+        Set<String> union = tokens1 + tokens2
+
+        if (union.isEmpty()) {
+            return 0.0
+        }
+
+        return intersection.size() / (Double) union.size()
+    }
+
+    private Double combinedSimilarity(Double cosine, Double jaccard) {
+        final Double alpha = 0.85
+
+        return alpha * cosine + (1 - alpha) * jaccard
     }
 }
