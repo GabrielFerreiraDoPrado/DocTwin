@@ -59,4 +59,19 @@ class SimilarityService {
 
         return dotProduct / (Math.sqrt(normV1) * Math.sqrt(normV2))
     }
+
+    private Double jaccardSimilarity(Set<String> tokens1, Set<String> tokens2) {
+        if (!tokens1 || !tokens2) {
+            return 0.0
+        }
+
+        Set<String> intersection = tokens1.intersect(tokens2)
+        Set<String> union = tokens1.union(tokens2)
+
+        if (union.isEmpty()) {
+            return 0.0
+        }
+
+        return intersection.size() / (double) union.size()
+    }
 }
