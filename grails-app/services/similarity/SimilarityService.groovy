@@ -73,13 +73,13 @@ class SimilarityService {
         }
 
         Set<String> intersection = tokens1.intersect(tokens2)
-        Set<String> union = tokens1.union(tokens2)
+        Set<String> union = tokens1 + tokens2
 
         if (union.isEmpty()) {
             return 0.0
         }
 
-        return intersection.size() / (double) union.size()
+        return intersection.size() / (Double) union.size()
     }
 
     private Double combinedSimilarity(Double cosine, Double jaccard) {
