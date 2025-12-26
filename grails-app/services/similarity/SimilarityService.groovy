@@ -37,6 +37,12 @@ class SimilarityService {
         return frequencyInfo
     }
 
+    private Double combinedSimilarity(Double cosine, Double jaccard) {
+        final Double alpha = 0.7
+
+        return alpha * cosine + (1 - alpha) * jaccard
+    }
+
     private Double cosineSimilarity(Map<String, Integer> v1, Map<String, Integer> v2) {
         Set<String> allTermList = v1.keySet() + v2.keySet()
 
