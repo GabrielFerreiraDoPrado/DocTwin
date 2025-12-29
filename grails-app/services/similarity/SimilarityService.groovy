@@ -1,6 +1,7 @@
 package similarity
 
 import doctwin.StopwordUtils
+
 import document.DocumentService
 
 import org.springframework.web.multipart.MultipartFile
@@ -17,13 +18,16 @@ class SimilarityService {
             return 0.0
         }
 
-        Map<String, Integer> vector1 = findTermFrequency(text1)
-        Map<String, Integer> vector2 = findTermFrequency(text2)
+        Map<String, Integer> termFrequency1 = findTermFrequency(text1)
+        Map<String, Integer> termFrequency2 = findTermFrequency(text2)
 
-        Double cosine = cosineSimilarity(vector1, vector2)
+        Map<String, Double> termFrequencyIdf1 = computeTermFrequencyIdf(termFrequency1, termFrequency2)
+        Map<String, Double> termFrequencyIdf2 = computeTermFrequencyIdf(termFrequency2, termFrequency1)
 
-        Set<String> tokens1 = vector1.keySet()
-        Set<String> tokens2 = vector2.keySet()
+        Double cosine = cosineSimilarity(termFrequencyIdf1, termFrequencyIdf2)
+
+        Set<String> tokens1 = termFrequency1.keySet()
+        Set<String> tokens2 = termFrequency2.keySet()
 
         Double jaccard = jaccardSimilarity(tokens1, tokens2)
 
@@ -44,16 +48,36 @@ class SimilarityService {
         return frequencyInfo
     }
 
-    private Double cosineSimilarity(Map<String, Integer> v1, Map<String, Integer> v2) {
-        Set<String> allTermList = v1.keySet() + v2.keySet()
+    private Map<String, Double> computeTermFrequencyIdf(Map<String, Integer> currentTermFrequency, Map<String, Integer> otherTermFrequency) {
+        Map<String, Double> termFrequencyIdf = [:]
+
+        final Integer totalDocuments = 2
+
+        currentTermFrequency.each { term, frequency ->
+            Integer documentFrequency = 1
+
+            if (otherTermFrequency.containsKey(term)) {
+                documentFrequency += 1
+            }
+
+           Double idf = Math.log((totalDocuments + 1.0) / (documentFrequency + 1.0)) + 1.0
+
+            termFrequencyIdf[term] = frequency * idf
+        }
+
+        return termFrequencyIdf
+    }
+
+    private Double cosineSimilarity(Map<String, Double> termFrequencyIdf1, Map<String, Double> termFrequencyIdf2) {
+        Set<String> allTermList = termFrequencyIdf1.keySet() + termFrequencyIdf2.keySet()
 
         Double dotProduct = 0.0
         Double normV1 = 0.0
         Double normV2 = 0.0
 
         allTermList.each { term ->
-            Integer x = v1[term] ?: 0
-            Integer y = v2[term] ?: 0
+            Double x = termFrequencyIdf1[term] ?: 0.0
+            Double y = termFrequencyIdf2[term] ?: 0.0
 
             dotProduct += x * y
             normV1 += x * x
