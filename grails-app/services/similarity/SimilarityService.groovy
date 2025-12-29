@@ -21,8 +21,8 @@ class SimilarityService {
         Map<String, Integer> termFrequency1 = findTermFrequency(text1)
         Map<String, Integer> termFrequency2 = findTermFrequency(text2)
 
-        Map<String, Double> termFrequencyIdf1 = findTermFrequencyIdf(termFrequency1, termFrequency2)
-        Map<String, Double> termFrequencyIdf2 = findTermFrequencyIdf(termFrequency2, termFrequency1)
+        Map<String, Double> termFrequencyIdf1 = computeTermFrequencyIdf(termFrequency1, termFrequency2)
+        Map<String, Double> termFrequencyIdf2 = computeTermFrequencyIdf(termFrequency2, termFrequency1)
 
         Double cosine = cosineSimilarity(termFrequencyIdf1, termFrequencyIdf2)
 
@@ -48,7 +48,7 @@ class SimilarityService {
         return frequencyInfo
     }
 
-    private Map<String, Double> findTermFrequencyIdf(Map<String, Integer> currentTermFrequency, Map<String, Integer> otherTermFrequency) {
+    private Map<String, Double> computeTermFrequencyIdf(Map<String, Integer> currentTermFrequency, Map<String, Integer> otherTermFrequency) {
         Map<String, Double> termFrequencyIdf = [:]
 
         final Integer totalDocuments = 2
@@ -76,8 +76,8 @@ class SimilarityService {
         Double normV2 = 0.0
 
         allTermList.each { term ->
-            Integer x = termFrequencyIdf1[term] ?: 0.0
-            Integer y = termFrequencyIdf2[term] ?: 0.0
+            Double x = termFrequencyIdf1[term] ?: 0.0
+            Double y = termFrequencyIdf2[term] ?: 0.0
 
             dotProduct += x * y
             normV1 += x * x
