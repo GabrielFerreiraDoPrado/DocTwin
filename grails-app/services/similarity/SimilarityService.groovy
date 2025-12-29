@@ -60,7 +60,7 @@ class SimilarityService {
                 documentFrequency += 1
             }
 
-            Double idf = Math.log((Double) totalDocuments / documentFrequency)
+           Double idf = Math.log((totalDocuments + 1.0) / (documentFrequency + 1.0)) + 1.0
 
             termFrequencyIdf[term] = frequency * idf
         }
