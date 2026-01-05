@@ -14,7 +14,6 @@ class SimilarityController {
 
     def compare() {
         try {
-            throw new Exception("Deu erro")
             MultipartFile file1 = request.getFile("file1")
             MultipartFile file2 = request.getFile("file2")
 
@@ -37,7 +36,7 @@ class SimilarityController {
                 ]
             )
         } catch (Exception exception) {
-            flash.error = "Erro ao processar os documentos. Por favor, tente novamente"
+            flash.error = "Erro ao processar os documentos. Por favor, tente novamente."
             redirect(controller: "home", action: "index")
             return
         }
