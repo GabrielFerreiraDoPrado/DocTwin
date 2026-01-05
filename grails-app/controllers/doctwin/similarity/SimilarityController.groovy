@@ -1,12 +1,11 @@
 package doctwin.similarity
 
 import grails.converters.JSON
+import grails.validation.ValidationException
 
 import org.springframework.web.multipart.MultipartFile
 
 import similarity.SimilarityService
-
-import javax.xml.bind.ValidationException
 
 class SimilarityController {
 
