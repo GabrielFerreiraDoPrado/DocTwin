@@ -38,10 +38,12 @@ class SimilarityController {
             )
         } catch (ValidationException validationException) {
             flash.error = validationException.getMessage()
+            redirect(controller: "home", action: "index")
+            return
         } catch (Exception exception) {
             flash.error = "Erro ao processar os documentos. Por favor, tente novamente."
-        } finally {
             redirect(controller: "home", action: "index")
+            return
         }
     }
 }
