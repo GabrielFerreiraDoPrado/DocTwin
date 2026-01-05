@@ -37,7 +37,7 @@ class SimilarityController {
                 ]
             )
         } catch (ValidationException validationException) {
-            flash.error = validationException.getMessage()
+            flash.error = validationException.getErrors().getAllErrors().first().defaultMessage
             redirect(controller: "home", action: "index")
             return
         } catch (Exception exception) {
