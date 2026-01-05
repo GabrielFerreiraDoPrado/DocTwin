@@ -43,14 +43,14 @@ class SimilarityService {
     private void validate(MultipartFile file1, MultipartFile file2) {
         Errors errors = new BeanPropertyBindingResult(this, "validation")
 
-        if (!file1 || file2) {
+        if (!file1 || !file2) {
             errors.reject("validation.error", "É necessário fornecer dois arquivos para comparação.")
-            throw new ValidationException("Erro de validação", null)
+            throw new ValidationException("Erro de validação", errors)
         }
 
         if (!documentService.isPdf(file1) || !documentService.isPdf(file2)) {
             errors.reject("validation.error", "Apenas arquivos PDF são permitidos.")
-            throw new ValidationException("Erro de validação", null)
+            throw new ValidationException("Erro de validação", errors)
         }
     }
 
