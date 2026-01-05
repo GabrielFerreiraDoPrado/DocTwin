@@ -4,6 +4,8 @@ import doctwin.StopwordUtils
 
 import document.DocumentService
 
+import grails.validation.ValidationException
+
 import org.springframework.web.multipart.MultipartFile
 
 class SimilarityService {
@@ -11,6 +13,8 @@ class SimilarityService {
     DocumentService documentService
 
     public Double compare(MultipartFile file1, MultipartFile file2) {
+        validate(file1, file2)
+
         String text1 = documentService.extractNormalizedTextFromPDF(file1)
         String text2 = documentService.extractNormalizedTextFromPDF(file2)
 
@@ -32,6 +36,16 @@ class SimilarityService {
         Double jaccard = jaccardSimilarity(tokens1, tokens2)
 
         return combinedSimilarity(cosine, jaccard)
+    }
+
+    private void validate(MultipartFile file1, MultipartFile file2) {
+        if (!file1 || file2) {
+            throw new ValidationException("É necessário fornecer dois arquivos para comparação.", null)
+        }
+
+        if (!documentService.isPdf(file1) || !documentService.isPdf(file2)) {
+            throw new ValidationException("Apenas arquivos PDF são permitidos.", null)
+        }
     }
 
     private Map<String, Integer> findTermFrequency(String text) {

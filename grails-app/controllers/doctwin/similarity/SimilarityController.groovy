@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile
 
 import similarity.SimilarityService
 
+import javax.xml.bind.ValidationException
+
 class SimilarityController {
 
     static allowedMethods = [compare: "POST"]
@@ -35,10 +37,12 @@ class SimilarityController {
                     similarityScore: similarityScore
                 ]
             )
+        } catch (ValidationException validationException) {
+            flash.error = validationException.getMessage()
         } catch (Exception exception) {
             flash.error = "Erro ao processar os documentos. Por favor, tente novamente."
+        } finally {
             redirect(controller: "home", action: "index")
-            return
         }
     }
 }
