@@ -1,6 +1,7 @@
 package doctwin.similarity
 
 import grails.converters.JSON
+import grails.validation.ValidationException
 
 import org.springframework.web.multipart.MultipartFile
 
@@ -35,6 +36,10 @@ class SimilarityController {
                     similarityScore: similarityScore
                 ]
             )
+        } catch (ValidationException validationException) {
+            flash.error = validationException.getErrors().getAllErrors().first().defaultMessage
+            redirect(controller: "home", action: "index")
+            return
         } catch (Exception exception) {
             flash.error = "Erro ao processar os documentos. Por favor, tente novamente."
             redirect(controller: "home", action: "index")
