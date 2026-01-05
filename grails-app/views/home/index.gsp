@@ -18,6 +18,15 @@
         </style>
     </head>
     <body>
+        <g:if test="${flash.error}">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8 col-lg-5">
+                    <div class="alert alert-danger text-center">
+                        ${flash.error}
+                    </div>
+                </div>
+            </div>
+        </g:if>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6">
