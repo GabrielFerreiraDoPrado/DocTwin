@@ -6,6 +6,8 @@ import document.DocumentService
 
 import grails.validation.ValidationException
 
+import org.springframework.validation.BeanPropertyBindingResult
+import org.springframework.validation.Errors
 import org.springframework.web.multipart.MultipartFile
 
 class SimilarityService {
@@ -39,12 +41,16 @@ class SimilarityService {
     }
 
     private void validate(MultipartFile file1, MultipartFile file2) {
+        Errors errors = new BeanPropertyBindingResult(this, "validation")
+
         if (!file1 || file2) {
-            throw new ValidationException("É necessário fornecer dois arquivos para comparação.", null)
+            errors.reject("validation.error", "É necessário fornecer dois arquivos para comparação.")
+            throw new ValidationException("Erro de validação", null)
         }
 
         if (!documentService.isPdf(file1) || !documentService.isPdf(file2)) {
-            throw new ValidationException("Apenas arquivos PDF são permitidos.", null)
+            errors.reject("validation.error", "Apenas arquivos PDF são permitidos.")
+            throw new ValidationException("Erro de validação", null)
         }
     }
 
