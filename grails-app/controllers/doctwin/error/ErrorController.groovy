@@ -11,4 +11,8 @@ class ErrorController {
         
         redirect(controller: "home", action: "index")
     }
+
+    def notFound() {
+        redirect(controller: "home", action: "index")
+    }
 }
