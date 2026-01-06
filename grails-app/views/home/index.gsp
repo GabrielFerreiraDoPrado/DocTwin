@@ -18,15 +18,13 @@
         </style>
     </head>
     <body>
-        <g:if test="${flash.error}">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-8 col-lg-5">
-                    <div class="alert alert-danger text-center">
-                        ${flash.error}
-                    </div>
+        <div id="errorContainer" class="row justify-content-center mt-5" ${flash.error ? "" : "hidden"}>
+            <div class="col-md-8 col-lg-5">
+                <div id="errorMessage" class="alert alert-danger text-center">
+                    ${flash.error}
                 </div>
             </div>
-        </g:if>
+        </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6">
@@ -42,7 +40,8 @@
                                 Carregue dois documentos de texto para analisar a similaridade entre eles
                             </p>
 
-                            <g:form controller="similarity"
+                            <g:form onsubmit="return validateFiles()"
+                                    controller="similarity"
                                     action="compare"
                                     method="POST"
                                     enctype="multipart/form-data">
@@ -79,6 +78,8 @@
                 </div>
             </div>
         </div>
+
+        <asset:javascript src="file-validator.js"/>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
