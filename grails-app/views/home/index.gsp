@@ -16,8 +16,29 @@
                 border-radius: 8px;
             }
         </style>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputs = document.querySelectorAll(".custom-file-input");
+
+                inputs.forEach(input => {
+                    input.addEventListener("change", function (e) {
+                        const fileName = e.target.files[0]?.name || "Escolher arquivo PDF";
+                        e.target.nextElementSibling.innerText = fileName;
+                    });
+                });
+            });
+        </script>
     </head>
     <body>
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container justify-content-center">
+                <span class="navbar-brand mb-0 h1 font-weight-bold">
+                    DocTwin
+                </span>
+            </div>
+        </nav>
+
         <div id="errorContainer" class="row justify-content-center mt-5" ${flash.error ? "" : "hidden"}>
             <div class="col-md-8 col-lg-5">
                 <div id="errorMessage" class="alert alert-danger text-center">
@@ -27,13 +48,13 @@
         </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
+                <div class="col-md-10 col-lg-6">
 
                     <div class="card shadow-sm">
                         <div class="card-body">
 
                             <h3 class="card-title text-center mb-4">
-                                Analizador de Similaridade de Documentos
+                                Similaridade de Documentos
                             </h3>
 
                             <p class="text-center text-muted mb-4">
@@ -46,25 +67,33 @@
                                     method="POST"
                                     enctype="multipart/form-data">
 
-                                <div class="form-group">
-                                    <label for="file1">Primeiro Documento</label>
+                                <div class="custom-file">
                                     <input type="file"
-                                           class="form-control-file"
-                                           id="file1"
-                                           name="file1"
-                                           required>
+                                        class="custom-file-input"
+                                        id="file1"
+                                        name="file1"
+                                        accept="application/pdf"
+                                        required>
+
+                                    <label class="custom-file-label" for="file1">
+                                        Escolher arquivo PDF
+                                    </label>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="file2">Segundo Documento</label>
+                                <div class="custom-file mt-3">
                                     <input type="file"
-                                           class="form-control-file"
-                                           id="file2"
-                                           name="file2"
-                                           required>
+                                        class="custom-file-input"
+                                        id="file2"
+                                        name="file2"
+                                        accept="application/pdf"
+                                        required>
+
+                                    <label class="custom-file-label" for="file2">
+                                        Escolher arquivo PDF
+                                    </label>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-block">
+                                <button type="submit" class="btn btn-primary btn-block mt-4">
                                     Analisar Similaridade
                                 </button>
                             </g:form>
@@ -72,9 +101,8 @@
                     </div>
 
                     <footer class="text-center mt-3 text-muted">
-                        <small>Grails 5 · Bootstrap 4 · Similarity</small>
+                        <small>Uninter · DocTwin · Similaridade</small>
                     </footer>
-
                 </div>
             </div>
         </div>

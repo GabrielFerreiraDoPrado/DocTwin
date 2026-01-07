@@ -8,6 +8,14 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     </head>
     <body>
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container justify-content-center">
+                <span class="navbar-brand mb-0 h1 font-weight-bold">
+                    DocTwin
+                </span>
+            </div>
+        </nav>
+
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
