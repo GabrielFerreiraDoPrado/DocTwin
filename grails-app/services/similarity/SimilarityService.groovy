@@ -58,7 +58,7 @@ class SimilarityService {
         Map<String, Integer> frequencyInfo = [:]
 
         text.split(" ").each { token ->
-            if (token) {
+            if (token?.trim()) {
                 if (StopwordUtils.isStopword(token)) return
 
                 frequencyInfo[token] = (frequencyInfo[token] ?: 0) + 1
