@@ -1,12 +1,9 @@
 package document
 
-import grails.gorm.transactions.Transactional
-
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.springframework.web.multipart.MultipartFile
 
-@Transactional
 class DocumentService {
 
     public String extractNormalizedTextFromPDF(MultipartFile pdfFile) {
