@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Document Similarity Analyzer</title>
+        <title>DocTwin</title>
 
         <!-- Bootstrap 4.6.1 -->
         <link rel="stylesheet"
@@ -48,7 +48,7 @@
         </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-6">
+                <div class="col-md-10 col-lg-6">.36,
 
                     <div class="card shadow-sm">
                         <div class="card-body">
